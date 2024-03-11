@@ -1,0 +1,112 @@
+app_name: setting_service
+
+# Database Configuration
+database:
+  driver: postgres
+  host: localhost
+  port: 5432
+  user: hibban
+  password: DATABASE_PASSWORD
+  name: dev_setting
+  ssl_mode: disable
+  schema: cs
+  migration: false
+  max_idle_conns: 10
+  max_open_conns: 100
+  max_life_time: 60
+  max_idle_life_time : 20
+  max_age: 24
+
+# Redis Configuration
+redis:
+  host: localhost
+  port: 6379
+  password:
+  db: 0
+  pool_size: 100
+  max_retries: 3
+  min_retry_backoff: 100ms
+  max_retry_backoff: 1000ms
+  dial_timeout: 5s
+  read_timeout: 5s
+  write_timeout: 5s
+  pool_timeout: 4s
+  idle_timeout: 60s
+  max_conn_lifetime: 0s
+  enable_tls: false
+  insecure_skip_verify: false
+  enabled: false
+  max_age: 24
+
+# Logging Configuration
+logging:
+  level: 1 #Level: -1 (trace), 0 (debug), 1 (info), 2 (warn), 3 (error), 4 (fatal), 5 (panic)
+  format: console
+  save_to_file: false
+  file_path: ./doc/logs/app.log
+
+# Rate Limiter
+rate_limiter:
+  enabled: true
+  requests_per_minute: 500
+
+# Feature Flags
+features:
+  new_feature_enabled: true
+  beta_feature_enabled: false
+
+# gRPC Server Configuration
+server:
+  grpc:
+    port: 55557
+    reflection: true
+  http:
+    host: 0.0.0.0
+    port: 8557
+    read_timeout: 10
+    write_timeout: 10
+    idle_timeout: 120
+
+# SSL/TLS settings (jika diperlukan)
+ssl:
+  enabled: true
+  cert_file: ./doc/cert/cert.pem
+  key_file: ./doc/cert/key.pem
+
+mail:
+  host: localhost
+  port: 25
+  username: ""
+  from: ""
+  tls: false
+  ssl: false
+  debug: false
+  timeout: 5
+  max_retries: 3
+  retry_interval: 5
+
+jwt:
+  algorithm: HS256
+  signing_key: JWT_SIGNING_KEY
+  secret_key: JWT_SECRET_KEY
+  secret_session_key: JWT_SECRET_SESSION_KEY
+  encryption_key: JWT_ENCRYPTION_KEY
+  issuer: computa_yogyakarta
+  audience: computa_member
+  expiration: 3600
+  refresh_token_expiration: 86400
+
+encryption:
+  aes_key: AES_KEY
+  salt: ENCRYPTION_SALT
+
+# Services Configuration
+services:
+  user_service:
+    host: localhost
+    port: 55556
+  menu_service:
+    host: localhost
+    port: 55558
+
+

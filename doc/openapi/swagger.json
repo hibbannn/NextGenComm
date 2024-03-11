@@ -1,0 +1,181 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Setting Service API",
+    "description": "API for managing user's setting",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Your Name",
+      "url": "https://example.com",
+      "email": "your@example.com"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/setting/get": {
+      "post": {
+        "summary": "Get Setting",
+        "description": "This endpoint allows you to get user setting",
+        "operationId": "UserService_GetProfileUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/serviceUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/serviceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ],
+        "security": []
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "serviceErrorDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/serviceUserError"
+        },
+        "technical": {
+          "$ref": "#/definitions/serviceTechnicalError"
+        }
+      }
+    },
+    "serviceInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "start": {
+          "type": "string"
+        },
+        "finish": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceTechnicalError": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "function": {
+          "type": "string"
+        },
+        "line": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "type": "string"
+        },
+        "doc": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceUserError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "help": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceUserResponse": {
+      "type": "object",
+      "properties": {
+        "information": {
+          "$ref": "#/definitions/serviceInformation"
+        },
+        "error": {
+          "$ref": "#/definitions/serviceErrorDetail"
+        }
+      }
+    }
+  }
+}

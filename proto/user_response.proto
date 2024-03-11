@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package user.service;
+
+option go_package = "github.com/hibbannn/grpc-http-boilerplate/stub/serviceUser";
+
+/***
+  * From Here is used for error and success details.
+ */
+
+message ErrorDetail {
+  string id = 1;
+  UserError user = 2;
+  TechnicalError technical = 3;
+}
+
+message TechnicalInfo {
+  string info = 2;
+}
+
+message UserError {
+  string message = 1;
+  string help = 2;
+}
+
+message TechnicalError {
+  string file = 1;
+  string function = 2;
+  int32 line = 3;
+  string error =4;
+  string doc = 5;
+}
+
+/*
+STANDARD Message
+====================================================================================================================================================================================
+*/
+
+// 1. Message
+message Message {
+  UserMessage user = 1;
+}
+
+message UserMessage{
+  string text = 1;
+}
+
+message Information{
+  string id = 1;
+  string start = 2;
+  string finish = 3;
+  string duration = 4;
+}
+
+message UserResponse {
+  Information information = 1;
+  ErrorDetail error = 2;
+}

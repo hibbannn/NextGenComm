@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package user.service;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "user_request.proto";
+import "user_response.proto";
+
+option go_package = "github.com/hibbannn/grpc-http-boilerplate/stub/serviceUser";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  swagger: "2.0";
+  info: {
+    title: "Setting Service API";
+    version: "1.0.0";
+    description: "API for managing user's setting";
+    contact: {
+      name: "Your Name";
+      url: "https://example.com";
+      email: "your@example.com";
+    };
+    license: {
+      name: "MIT License";
+      url: "https://opensource.org/licenses/MIT";
+    };
+  };
+  schemes: [HTTP, HTTPS]; // Scheme yang digunakan oleh API
+  consumes: ["application/json"]; // Tipe yang dikonsumsi oleh API
+  produces: ["application/json"]; // Tipe yang dihasilkan oleh API
+};
+
+service UserService {
+  rpc GetProfileUser(Request) returns (UserResponse){
+    option (google.api.http) = {
+      post: "/v1/setting/get",
+      body: "*";
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      security: {};
+      summary: "Get Setting";
+      description: "This endpoint allows you to get user setting";
+    };
+  };
+}

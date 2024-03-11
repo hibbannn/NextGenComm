@@ -1,0 +1,14 @@
+{"level":"info","time":1709520091,"message":"Config initialized"}
+{"level":"info","time":1709520091,"message":"Database initialized"}
+{"level":"info","time":1709520091,"message":"- Swagger UI enabled!"}
+{"level":"info","time":1709520091,"message":"Server started successfully"}
+{"level":"info","time":1709520091,"message":"GRPC server started on port 55557"}
+{"level":"info","time":1709520091,"message":"HTTP server started on port 8557"}
+{"level":"info","time":1709520096,"message":"Servers gracefully stopped"}
+{"level":"info","time":1709520112,"message":"Config initialized"}
+{"level":"info","time":1709520112,"message":"Database initialized"}
+{"level":"info","time":1709520112,"message":"- Swagger UI enabled!"}
+{"level":"info","time":1709520112,"message":"Server started successfully"}
+{"level":"info","time":1709520112,"message":"GRPC server started on port 55557"}
+{"level":"info","time":1709520112,"message":"HTTP server started on port 8557"}
+{"level":"info","time":1709520264,"message":"Servers gracefully stopped"}

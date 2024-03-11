@@ -1,0 +1,30 @@
+# Database Configuration
+DB_HOST: localhost
+DB_NAME: boilerplate
+DB_PORT: 5432
+
+# Logging Configuration
+logging:
+  level: info
+  format: text
+
+# Rate Limiter
+rate_limiter:
+  enabled: true
+  requests_per_minute: 100
+
+# Feature Flags
+features:
+  new_feature_enabled: true
+  beta_feature_enabled: false
+
+# gRPC Server Configuration
+grpc:
+  port: 51015
+  reflection: true
+
+# SSL/TLS settings (jika diperlukan)
+ssl:
+  enabled: true
+  cert_file: ${GRPC_SERVER_CERT}  # referensi variabel dari .env
+  key_file: ${GRPC_SERVER_KEY}    # referensi variabel dari .env

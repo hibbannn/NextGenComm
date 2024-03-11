@@ -1,0 +1,98 @@
+syntax = "proto3";
+
+package user.service;
+import "google/api/field_behavior.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-gorm/options/gorm.proto";
+
+option go_package = "github.com/hibbannn/grpc-http-boilerplate/stub/serviceUser";
+
+message Accessibility {
+  option (gorm.opts) = {
+    ormable: true,
+    table: "accessibilities",
+  };
+
+  uint64 id = 1 [(google.api.field_behavior) = OUTPUT_ONLY, (gorm.field).tag = {primary_key: true not_null: true}];
+  bool dark_mode = 2 [(gorm.field).tag = {default: "false", not_null: true}];
+  bool transparency = 3 [(gorm.field).tag = {default: "true", not_null: true}];
+  uint64 accent_color_id = 4 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+
+  google.protobuf.Timestamp created_at = 91;
+  google.protobuf.Timestamp updated_at = 92;
+
+  // Relasi ke Color
+  Color accent_color = 100 [(gorm.field).belongs_to = {foreignkey: "AccentColorID"}];
+}
+
+message Color {
+  option (gorm.opts) = {
+    ormable: true,
+    table: "colors",
+  };
+
+  uint64 id = 1 [(google.api.field_behavior) = OUTPUT_ONLY, (gorm.field).tag = {primary_key: true not_null: true}];
+  string name = 2;
+  string code = 3;
+
+  google.protobuf.Timestamp created_at = 91;
+  google.protobuf.Timestamp updated_at = 92;
+
+  // Relasi ke Accessibility sebagai AccentColor
+  repeated Accessibility accessibilities = 100 [(gorm.field).has_many = {foreignkey: "AccentColorID"}];
+}
+
+message Feature {
+  option (gorm.opts) = {
+    ormable: true,
+    table: "features",
+  };
+
+  uint64 id = 1 [(google.api.field_behavior) = OUTPUT_ONLY, (gorm.field).tag = {primary_key: true not_null: true}];
+  string name = 2 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+  string code = 3 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+
+  google.protobuf.Timestamp created_at = 91;
+  google.protobuf.Timestamp updated_at = 92;
+
+  // Relasi ke NotificationsFeatures
+  repeated NotificationsFeature notifications_features = 100 [(gorm.field).has_many = {foreignkey: "FeatureID"}];
+}
+
+message NotificationsFeature {
+  option (gorm.opts) = {
+    ormable: true,
+    table: "notifications_features",
+  };
+
+  uint64 id = 1 [(google.api.field_behavior) = OUTPUT_ONLY, (gorm.field).tag = {primary_key: true not_null: true}];
+  uint64 feature_id = 2 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+  uint64 setting_id = 3 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+  bool is_enabled = 4 [(gorm.field).tag = {default: "false", not_null: true}];
+
+  google.protobuf.Timestamp created_at = 91;
+  google.protobuf.Timestamp updated_at = 92;
+
+  // Relasi ke Feature dan Setting
+  Feature feature = 100 [(gorm.field).belongs_to = {foreignkey: "FeatureID"}];
+  Setting setting = 101 [(gorm.field).belongs_to = {foreignkey: "SettingID"}];
+}
+
+message Setting {
+  option (gorm.opts) = {
+    ormable: true,
+    table: "settings",
+  };
+
+  uint64 id = 1 [(google.api.field_behavior) = OUTPUT_ONLY, (gorm.field).tag = {primary_key: true not_null: true}];
+  string username = 2;
+  uint64 accessibility_id = 3 [(google.api.field_behavior) = REQUIRED, (gorm.field).tag = {not_null: true}];
+
+  google.protobuf.Timestamp created_at = 91;
+  google.protobuf.Timestamp updated_at = 92;
+
+  // Relasi ke Accessibility
+  Accessibility accessibility = 100 [(gorm.field).belongs_to = {foreignkey: "AccessibilityID"}];
+  // Relasi ke NotificationsFeatures sebagai Setting
+  repeated NotificationsFeature notifications_features = 101 [(gorm.field).has_many = {foreignkey: "SettingID"}];
+}
